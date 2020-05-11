@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>6b4432f1-d34a-45d1-b8af-47279631a1b0</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>BallSortPuzzle1.0.py</StartupFile>
+    <StartupFile>ball_sort_1.0.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,13 +21,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GameFunctions.py">
+    <Compile Include="game_functions.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Puzzle.py">
+    <Compile Include="ball_sort_1.0.py" />
+    <Compile Include="puzzle.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BallSortPuzzle1.0.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

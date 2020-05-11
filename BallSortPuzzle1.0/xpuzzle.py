@@ -10,34 +10,34 @@ UNFILLED_SPACE='-' #represents the unfilled space in a tube
 #the puzzle object class
 #contains three member variables
 #  member variable 1: puzzle - the puzzle board of the sort game
-#  member variable 2: __filled_tubes - the count of tubes that should be filled with balls up to the TUBE_CAPACITY in the game
+#  member variable 2: __filledTubes - the count of tubes that should be filled with balls up to the TUBE_CAPACITY in the game
 #  member variable 3: __emptyTubes - the count of idle tubes for moving the balls
 class Puzzle:
     #constructor - a puzzle object has three attributes: the puzzle board, the count of filled tubes, and the count of empty tubes
-    def __init__(self, __filled_tubes, __emptyTubes):
-        self.__filled_tubes=__filled_tubes
+    def __init__(self, __filledTubes, __emptyTubes):
+        self.__filledTubes=__filledTubes
         self.__emptyTubes=__emptyTubes
         self.make_puzzle()
     #function to make the puzzle board
-    #parameter __filled_tubes is the number of tubes each to be fully filled with the same kind of balls in the game
+    #parameter __filledTubes is the number of tubes each to be fully filled with the same kind of balls in the game
     #returns the generated game puzzle
     def make_puzzle(self):
         self.__puzzle=[]
-        print('filled tubes: %d' %self.__filled_tubes)
+        print('filled tubes: %d' %self.__filledTubes)
         print('empty tubes: %d' %self.__emptyTubes)
-        for count in range(self.__filled_tubes):  #initialize the puzzle with the number of filled tubes
+        for count in range(self.__filledTubes):  #initialize the puzzle with the number of filled tubes
             self.__puzzle.append([])
-        for alphabet in string.ascii_lowercase[:self.__filled_tubes]:  #randomly put balls represented by letters in each tube
+        for alphabet in string.ascii_lowercase[:self.__filledTubes]:  #randomly put balls represented by letters in each tube
             for i in range(TUBE_CAPACITY):
-                tubeIndex=random.randint(0,self.__filled_tubes-1)  #randomly generate a tube index to put the ball in each tube
+                tubeIndex=random.randint(0,self.__filledTubes-1)  #randomly generate a tube index to put the ball in each tube
                 while len(self.__puzzle[tubeIndex])>=TUBE_CAPACITY:
-                    tubeIndex=random.randint(0,self.__filled_tubes-1)  #keep searching for unfilled tubes while the current one is fully filled
+                    tubeIndex=random.randint(0,self.__filledTubes-1)  #keep searching for unfilled tubes while the current one is fully filled
                 self.__puzzle[tubeIndex].append(alphabet)
         self.shuffle_balls()
         for empty in range(self.__emptyTubes):
             self.__puzzle.append([])  #add empty tubes to the __puzzle for moving
         random.shuffle(self.__puzzle)  #randomly shuffle the puzzle
-        self.__init_puzzle=copy.deepcopy(self.__puzzle)  #save a copy of the initial board for restarting the game
+        self.init_puzzle=copy.deepcopy(self.__puzzle)  #save a copy of the initial board for restarting the game
    
     #function to further randomize the arrangement of balls
     def shuffle_balls(self):
@@ -63,14 +63,14 @@ class Puzzle:
 
     #function to print the puzzle of the ball sort game
     def print_puzzle(self):
-        for base in range(self.__filled_tubes+self.__emptyTubes):
+        for base in range(self.__filledTubes+self.__emptyTubes):
             print((' [ %d] '%base) if base <10 else ' [%d] '%base,end="")
         print('\n')
         for row in range(TUBE_CAPACITY):
-            for tubes in range(self.__filled_tubes+self.__emptyTubes):
+            for tubes in range(self.__filledTubes+self.__emptyTubes):
                 print(' | %s| ' %(self.__puzzle[tubes][TUBE_CAPACITY-row-1] if (TUBE_CAPACITY-row)<=len(self.__puzzle[tubes]) else UNFILLED_SPACE),end="")
             print('\n')
-        for base in range(self.__filled_tubes+self.__emptyTubes):
+        for base in range(self.__filledTubes+self.__emptyTubes):
             print(' ____ ',end="")
         print('\n')
     #function to determine whether the game is won or not
@@ -78,8 +78,7 @@ class Puzzle:
     def detect_win(self):
         for tube in self.__puzzle:
             if len(tube)>0:
-                if len(tube)<TUBE_CAPACITY or len(set(tube))>1:  #(not fully filled tube) or (fully filled tube and not unique balls)
+                if len(tube)<TUBE_CAPACITY| len(set(tube))>1:  #(not fully filled tube) or (fully filled tube and not unique balls)
                     return False
         return True
-
 
